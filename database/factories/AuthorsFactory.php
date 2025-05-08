@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Authors;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class AuthorsFactory extends Factory
 {
+    protected $model = Authors::class;
     /**
      * Define the model's default state.
      *
@@ -17,7 +19,9 @@ class AuthorsFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => $this->faker->name,
+            'email' => $this->faker->unique()->safeEmail,
+            'url' => $this->faker->url
         ];
     }
 }
