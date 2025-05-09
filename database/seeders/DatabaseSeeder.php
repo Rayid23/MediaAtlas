@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\AuthorContent;
+use App\Models\ContentGenres;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -26,5 +28,19 @@ class DatabaseSeeder extends Seeder
             ContentSeeder::class,
             GenreSeeder::class
         ]);
+
+        for ($index = 0; $index < 10; $index++) {
+             ContentGenres::query()->create([
+                'content_id' => rand(1, 10),
+                'genre_id' => rand(1, 10),
+             ]);
+        }
+
+        for ($index = 0; $index < 10; $index++) {
+             AuthorContent::query()->create([
+                'author_id' => rand(1, 10),
+                'content_id' => rand(1, 10),
+             ]);
+        }
     }
 }

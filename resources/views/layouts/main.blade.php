@@ -26,11 +26,11 @@
 
 <body>
 
-<section class="preloader">
-    <div class="spinner">
-        <span class="sk-inner-circle"></span>
-    </div>
-</section>
+{{--<section class="preloader">--}}
+{{--    <div class="spinner">--}}
+{{--        <span class="sk-inner-circle"></span>--}}
+{{--    </div>--}}
+{{--</section>--}}
 
 <main>
 
@@ -86,7 +86,33 @@
     <section class="slick-slideshow">
 
         <div class="container">
-            @yield('content')
+            <div class="row">
+                <div class="col-8 offset-2">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">GENRES</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($models as $model)
+                            <tr>
+                                <td>{{ $model->id }}</td>
+                                <td>{{ $model->name }}</td>
+                                <td>
+                                    @foreach($model->contents as $content)
+                                        {{ $content->title }}
+                                    @endforeach
+                                </td>
+                            </tr>
+                        @endforeach
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
 
     </section>

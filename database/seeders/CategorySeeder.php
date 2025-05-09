@@ -13,6 +13,12 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        Category::factory()->count(10)->create();
+        $categories = ["Youtube", "Books", "Musics", "Movies", "Comics"];
+
+        for ($index = 0; $index < count($categories); $index++) {
+            Category::query()->create([
+                'name' => $categories[$index],
+            ]);
+        }
     }
 }

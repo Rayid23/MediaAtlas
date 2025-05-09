@@ -17,6 +17,6 @@ class Genre extends Model
     ];
     public function contents(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(Content::class, 'content_genres', 'genre_id', 'content_id');
+        return $this->belongsToMany(Content::class, 'content_genres', 'genre_id','content_id');
     }
 }

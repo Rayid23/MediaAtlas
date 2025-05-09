@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class content_genres extends Model
+class ContentGenres extends Model
 {
     protected $table = 'content_genres';
 
