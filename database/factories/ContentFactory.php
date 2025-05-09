@@ -22,7 +22,7 @@ class ContentFactory extends Factory
             'title' => $this->faker->title,
             'description' => $this->faker->text,
             'url' => $this->faker->url,
-            'category_id' => rand(1,10)
+            'category_id' => rand(1,5)
         ];
     }
 }
