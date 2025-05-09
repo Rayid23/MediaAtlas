@@ -15,4 +15,8 @@ class Genre extends Model
     protected $fillable = [
         'name',
     ];
+    public function contents(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Content::class, 'content_genres', 'genre_id','content_id');
+    }
 }

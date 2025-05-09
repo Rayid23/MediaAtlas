@@ -17,4 +17,14 @@ class Content extends Model
         'url',
         'category_id'
     ];
+
+    public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
+
+    public function genres(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Genre::class, 'content_genres', 'content_id', 'genre_id');
+    }
 }

@@ -14,4 +14,9 @@ class Category extends Model
     protected $fillable = [
         'name',
     ];
+
+    public function contents(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Content::class, 'category_id', 'id');
+    }
 }
