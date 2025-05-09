@@ -11,10 +11,14 @@ class AuthorSeeder extends Seeder
      */
     public function run(): void
     {
+        Authors::query()->create([
+            "name" => "Евгение Стрекоза",
+            "url" => "https://litnet.com/ru/mariya-luneva-u244464"
+        ]); //categories:books
 
         Authors::query()->create([
             'name' => "Enjoykin",
-            'url' => "https://www.youtube.com/@Enjoykin"
+            'url' => 'https://www.youtube.com/@Enjoykin'
         ]); //{musics} categories:video
 
         Authors::query()->create([
@@ -43,7 +47,17 @@ class AuthorSeeder extends Seeder
         ]); //categories:books
 
         Authors::query()->create([
-            "name" => "Мария Лунева",
+            "name" => "Амир Сунаев",
+            "url" => "https://litnet.com/ru/mariya-luneva-u244464"
+        ]); //categories:books
+
+        Authors::query()->create([
+            "name" => "Люся Лунева",
+            "url" => "https://litnet.com/ru/mariya-luneva-u244464"
+        ]); //categories:books
+
+        Authors::query()->create([
+            "name" => "Федя Лунеев",
             "url" => "https://litnet.com/ru/mariya-luneva-u244464"
         ]); //categories:books
     }

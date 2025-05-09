@@ -35,15 +35,15 @@
 
 <body>
 
-{{--<section class="preloader">--}}
-{{--    <div class="spinner">--}}
-{{--        <span class="sk-inner-circle"></span>--}}
-{{--    </div>--}}
-{{--</section>--}}
+<section class="preloader">
+    <div class="spinner">
+        <span class="sk-inner-circle"></span>
+    </div>
+</section>
 
 <main>
 
-    <nav class="navbar navbar-expand-lg"
+    <nav class="navbar navbar-expand-lg position-relative"
          style="background-color: #1a1a1a; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-bottom: 2px solid #ff4500;">
 
         <div class="container">
@@ -56,7 +56,6 @@
             <a class="navbar-brand" href="#">
                 <strong><span>Media Atlas</span></strong>
             </a>
-
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mx-auto">
@@ -114,8 +113,8 @@
         </div>
     </nav>
 
-    <section class="slick-slideshow">
 
+    <section class="slick">
         <div class="container">
             <div class="row">
                 <div class="col-8 offset-2">
