@@ -17,4 +17,9 @@ class Authors extends Model
         'email',
         'url',
     ];
+
+    public function contents(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Content::class, 'author_content', 'author_id', 'content_id');
+    }
 }
