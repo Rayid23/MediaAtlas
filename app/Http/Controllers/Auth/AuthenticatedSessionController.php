@@ -28,7 +28,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('home', absolute: false));
+        return $this->redirectTo();
     }
 
     /**
@@ -42,5 +42,14 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/');
+    }
+
+    public function redirectTo()
+    {
+        if (auth()->check() && auth()->user()->hasRole(['super-admin', 'admin'])) {
+            return redirect()->route('admin.dashboard');
+        }
+
+        return redirect()->route('home');
     }
 }
