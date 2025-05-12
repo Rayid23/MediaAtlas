@@ -13,7 +13,10 @@ class GenreController extends Controller
      */
     public function index()
     {
-        //
+        $genres = Genre::all();
+
+        return view('main.admin.genres.index', compact('genres'));
+
     }
 
     /**

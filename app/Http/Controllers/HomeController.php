@@ -13,16 +13,11 @@ class HomeController extends Controller
     public function index()
     {
         $models = Genre::all();
-
-
-
-
-
         return view('layouts.main', compact('models'));
     }
 
-    public function adminDashboard()
+    public function adminIndex()
     {
-        return view('main.admin.author');
+        return view('main.admin.dashboard');
     }
 }
