@@ -23,7 +23,7 @@ class AuthorsController extends Controller
      */
     public function create()
     {
-        $authors = Authors::all();
+        $authors = Authors::orderBy('id', 'desc')->get();
 
         return view('main.admin.authors.create', compact('authors'));
     }
@@ -33,7 +33,15 @@ class AuthorsController extends Controller
      */
     public function store(StoreAuthorsRequest $request)
     {
-        //
+        unset($request['bio']); // Remove the bio field from the request data
+        
+
+        Authors::create([
+            'name' => $request->name,
+            'url' => $request->url,
+        ]);
+        
+        return redirect()->back()->with('success', 'Автор успешно добавлен!');
     }
 
     /**

@@ -42,12 +42,18 @@
                     <!-- Быстрые действия -->
                     <div class="flex-shrink-0 flex flex-col sm:flex-row gap-2">
                         <!-- Add Modal -->
-                        <button class="flex items-center justify-center px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-indigo-300 focus:ring-opacity-50 shadow-md hover:shadow-lg active:scale-[0.98]">
+                        <button id="openModalBtn" class="flex items-center justify-center px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-indigo-300 focus:ring-opacity-50 shadow-md hover:shadow-lg active:scale-[0.98]">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
                             </svg>
                             {{ __("Добавить автора") }}
                         </button>
+                        <a  href="{{ route('authors.index') }}" class="flex items-center justify-center px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-indigo-300 focus:ring-opacity-50 shadow-md hover:shadow-lg active:scale-[0.98]">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-5-5a1 1 0 010-1.414l5-5a1 1 0 111.414 1.414L4.414 9H17a1 1 0 110 2H4.414l3.293 3.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+                            </svg>
+                            {{ __("Вернуться") }}
+                        </a>
                     </div>
                 </div>
             </div>
@@ -89,6 +95,135 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
                             </svg>
                             {{ __('Фильтры') }}
+                        </button>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Модальное окно для добавления автора -->
+        <div class="modal fade fixed inset-0 z-50 overflow-y-auto" id="exampleModal" tabindex="-1" aria-hidden="false">
+            <div class="modal-backdrop fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity"></div>
+            <div class="modal-container min-h-screen flex items-center justify-center p-4">
+                <div class="modal-content bg-white dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 w-full max-w-md transform transition-all">
+                    <!-- Заголовок модального окна -->
+                    <div class="modal-header p-6 border-b border-gray-200 dark:border-gray-700">
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-indigo-600 dark:text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+                            </svg>
+                            Добавить нового автора
+                        </h3>
+                        <button type="button" class="absolute top-4 right-4 text-gray-400 hover:text-gray-500 dark:hover:text-gray-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Тело модального окна с формой -->
+                    <div class="modal-body p-6">
+                        <form action="{{ route('authors.store') }}" id="addAuthorForm" class="space-y-4" method="POST">
+                            @csrf
+                            @method('POST')
+                            <!-- Прогресс-бар для многошаговых форм (если нужно) -->
+                            <div class="progress-bar hidden">
+                                <div class="flex justify-between text-xs text-gray-500 dark:text-gray-400 mb-1">
+                                    <span>Шаг 1 из 3</span>
+                                    <span>33% завершено</span>
+                                </div>
+                                <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
+                                    <div class="bg-indigo-600 h-1.5 rounded-full" style="width: 33%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Поле "Имя" -->
+                            <div class="form-group">
+                                <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                    Имя
+                                    <span class="text-red-500">*</span>
+                                </label>
+                                <div class="relative">
+                                    <input
+                                        type="text"
+                                        id="name"
+                                        name="name"
+                                        class="block w-full px-3 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
+                                        placeholder="Лев"
+                                        required>
+                                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none hidden">
+                                        <svg class="h-5 w-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <span class="text-center text-sm text-red-500 dark:text-red-400">
+                                    @error('name')
+                                    {{ $message }}
+                                    @enderror
+                                </span>
+                            </div>
+
+                            <!-- Поле "Добавление ссылки на их профиль" -->
+                            <div class="form-group">
+                                <label for="url" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                    Ccылка на профиль
+                                    <span class="text-red-500">*</span>
+                                </label>
+                                <div class="relative">
+                                    <input
+                                        type="text"
+                                        id="url"
+                                        name="url"
+                                        placeholder="https://example.com/author-profile"
+                                        class="block w-full px-3 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
+                                        aria-describedby="dateHelp">
+
+                                </div>
+                                <span class="text-center text-sm text-red-500 dark:text-red-400">
+                                    @error('url')
+                                    {{ $message }}
+                                    @enderror
+                                </span>
+                            </div>
+
+                            <!-- Поле "Биография" -->
+                            <div class="form-group">
+                                <label for="bio" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                    Краткая биография
+                                    <span class="text-xs text-gray-500 dark:text-gray-400 ml-1">(необязательно)</span>
+                                </label>
+                                <textarea
+                                    id="bio"
+                                    name="bio"
+                                    rows="3"
+                                    class="block w-full px-3 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
+                                    placeholder="Известный русский писатель, автор романов 'Война и мир' и 'Анна Каренина'..."></textarea>
+                                <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Максимум 500 символов</p>
+                                <div class="flex justify-end mt-1 text-xs text-gray-500 dark:text-gray-400">
+                                    <span id="bioCounter">0</span>/500
+                                </div>
+                                <span class="text-center text-sm text-red-500 dark:text-red-400">
+                                    @error('bio')
+                                    {{ $message }}
+                                    @enderror
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Футер модального окна -->
+                    <div class="modal-footer p-6 border-t border-gray-200 dark:border-gray-700 flex justify-end space-x-3">
+                        <button type="button" class="px-4 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-200">
+                            Отмена
+                        </button>
+                        <button type="submit" form="addAuthorForm" class="px-4 py-2.5 text-sm font-medium text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1.5 -ml-1" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                            </svg>
+                            Добавить автора
                         </button>
                     </div>
                 </div>
@@ -223,4 +358,39 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.getElementById('openModalBtn').addEventListener('click', () => {
+            document.getElementById('exampleModal').classList.remove('hidden');
+        });
+
+        document.querySelectorAll('#exampleModal button[type="button"]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.getElementById('exampleModal').classList.add('hidden');
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const openBtn = document.getElementById('openModalBtn');
+            const modal = document.getElementById('exampleModal');
+            const closeBtn = modal.querySelector('button[type="button"]');
+
+            openBtn.addEventListener('click', () => {
+                modal.classList.remove('hidden');
+            });
+
+            closeBtn.addEventListener('click', () => {
+                modal.classList.add('hidden');
+            });
+
+            // Закрытие при клике на фон
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+
+
 </x-app-layout>
