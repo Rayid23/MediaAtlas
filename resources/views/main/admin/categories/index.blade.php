@@ -33,12 +33,12 @@
         <!-- Панель действий с четкими визуальными состояниями -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6 flex flex-wrap gap-3">
             <!-- Основная кнопка с визуальным акцентом -->
-            <button class="flex items-center px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-opacity-50 dark:focus:ring-blue-700 shadow-md hover:shadow-lg active:scale-[0.98]">
+            <a href="{{ route('categories.create') }}" class="flex items-center px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-opacity-50 dark:focus:ring-blue-700 shadow-md hover:shadow-lg active:scale-[0.98]">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
                 </svg>
                 {{ __("Создать категорию") }}
-            </button>
+            </a>
 
             <!-- Поле поиска с визуальной обратной связью -->
             <div class="relative flex-grow max-w-md">

@@ -11,7 +11,7 @@ class StoreCategoryRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,17 @@ class StoreCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|unique:categories,name|max:16|min:3',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Имя категории обязательно.',
+            'name.unique'   => 'Такая категория уже существует.',
+            'name.max'      => 'Имя категории не должно превышать 16 символов.',
+            'name.min'      => 'Имя категории должно быть не короче 3 символов.',
         ];
     }
 }

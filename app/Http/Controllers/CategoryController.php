@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Category;
+use App\Models\Content;
 
 class CategoryController extends Controller
 {
@@ -23,7 +24,10 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        $contents = Content::all();
+
+        return view('main.admin.categories.create', compact('categories', 'contents'));
     }
 
     /**
@@ -31,7 +35,8 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        //
+        Category::create($request->all());
+        return redirect()->back();
     }
 
     /**
@@ -39,7 +44,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        return view('main.admin.categories.show', compact('category'));
     }
 
     /**
@@ -47,7 +52,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('main.admin.categories.edit', compact('category'));
     }
 
     /**
@@ -63,6 +68,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+
+        return redirect()->back();
     }
 }

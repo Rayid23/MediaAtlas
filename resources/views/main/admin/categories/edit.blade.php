@@ -106,48 +106,7 @@
                             </div>
                         </div>
 
-                        <!-- Группа дополнительных настроек -->
-                        <div class="space-y-6 pt-6">
-                            <h3 class="text-base font-medium text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">Дополнительные настройки</h3>
-
-                            <!-- Поле статуса -->
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                                    {{ __('Статус') }}
-                                </label>
-                                <div class="space-y-2">
-                                    <div class="flex items-center">
-                                        <input id="status-active" name="status" type="radio" value="active" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:focus:ring-blue-600" checked>
-                                        <label for="status-active" class="ml-3 block text-sm font-medium text-gray-700 dark:text-gray-300">
-                                            {{ __('Активная') }}
-                                        </label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="status-inactive" name="status" type="radio" value="inactive" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:focus:ring-blue-600">
-                                        <label for="status-inactive" class="ml-3 block text-sm font-medium text-gray-700 dark:text-gray-300">
-                                            {{ __('Неактивная') }}
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Поле изображения с превью -->
-                            <div>
-                                <label for="image" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                                    {{ __('Изображение категории') }}
-                                </label>
-                                <div class="mt-1 flex items-center space-x-4">
-                                    <div class="flex-shrink-0 h-16 w-16 rounded-md overflow-hidden bg-gray-100 dark:bg-gray-700">
-                                        <img id="image-preview" src="{{ $category->image_url ?? 'https://via.placeholder.com/150' }}" alt="Превью изображения" class="h-full w-full object-cover">
-                                    </div>
-                                    <div class="flex-1">
-                                        <input type="file" name="image" id="image" accept="image/*"
-                                            class="block w-full text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-blue-50 dark:file:bg-gray-700 file:text-blue-700 dark:file:text-gray-300 hover:file:bg-blue-100 dark:hover:file:bg-gray-600 transition-colors duration-200">
-                                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">JPG, PNG или GIF. Максимум 2MB.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
                     </div>
 
                     <!-- Футер формы с улучшенными кнопками действий -->

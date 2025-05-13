@@ -17,54 +17,38 @@
                         inactive-class="text-gray-600 dark:text-gray-300">
                         {{ __('Главная') }}
                     </x-nav-link>
-
-                    <!-- Управление контентом -->
-                    <x-dropdown align="right" width="56">
-                        <x-slot name="trigger">
-                            <button class="flex items-center px-4 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200 group">
-                                {{ __('Управления сайта') }}
-                                <svg class="ml-2 h-4 w-4 text-gray-400 dark:text-gray-500 group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-transform" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </button>
-                        </x-slot>
-
-                        <x-slot name="content" class="py-1 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-900">
-                            <x-dropdown-link :href="route('authors.index')" class="px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
-                                {{ __('Авторы') }}
-                            </x-dropdown-link>
-                            <x-dropdown-link :href="route('genres.index')" class="px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
-                                {{ __('Жанры') }}
-                            </x-dropdown-link>
-                            <x-dropdown-link :href="route('categories.index')" class="px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
-                                {{ __('Категории') }}
-                            </x-dropdown-link>
-                        </x-slot>
-                    </x-dropdown>
-
-                    <!-- Управление пользователями -->
-                    <x-dropdown align="right" width="56">
-                        <x-slot name="trigger">
-                            <button class="flex items-center px-4 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200 group">
-                                {{ __('Управления пользователями') }}
-                                <svg class="ml-2 h-4 w-4 text-gray-400 dark:text-gray-500 group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-transform" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </button>
-                        </x-slot>
-
-                        <x-slot name="content" class="py-1 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-900">
-                            <x-dropdown-link :href="route('admin.dashboard')" class="px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
-                                {{ __('Все пользователи') }}
-                            </x-dropdown-link>
-                            <x-dropdown-link :href="route('admin.dashboard')" class="px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
-                                {{ __('Роли') }}
-                            </x-dropdown-link>
-                            <x-dropdown-link :href="route('admin.dashboard')" class="px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
-                                {{ __('Права доступа') }}
-                            </x-dropdown-link>
-                        </x-slot>
-                    </x-dropdown>
+                    <x-nav-link
+                        :href="route('authors.index')"
+                        :active="request()->routeIs('authors.index')"
+                        class="px-4 py-2 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200"
+                        active-class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white font-semibold"
+                        inactive-class="text-gray-600 dark:text-gray-300">
+                        {{ __('Авторы') }}
+                    </x-nav-link>
+                    <x-nav-link
+                        :href="route('categories.index')"
+                        :active="request()->routeIs('categories.index')"
+                        class="px-4 py-2 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200"
+                        active-class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white font-semibold"
+                        inactive-class="text-gray-600 dark:text-gray-300">
+                        {{ __('Категории') }}
+                    </x-nav-link>
+                    <x-nav-link
+                        :href="route('genres.index')"
+                        :active="request()->routeIs('genres.index')"
+                        class="px-4 py-2 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200"
+                        active-class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white font-semibold"
+                        inactive-class="text-gray-600 dark:text-gray-300">
+                        {{ __('Жанры') }}
+                    </x-nav-link>
+                    <x-nav-link
+                        :href="route('admin.dashboard')"
+                        :active="request()->routeIs('admin.dashboard')"
+                        class="px-4 py-2 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200"
+                        active-class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white font-semibold"
+                        inactive-class="text-gray-600 dark:text-gray-300">
+                        {{ __('Контенты') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -115,6 +99,34 @@
                 class="px-4 py-3 rounded-lg font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                 active-class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white font-semibold">
                 {{ __('Обзор панели') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link
+                :href="route('authors.index')"
+                :active="request()->routeIs('authors.index')"
+                class="px-4 py-3 rounded-lg font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                active-class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white font-semibold">
+                {{ __('Авторы') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link
+                :href="route('genres.index')"
+                :active="request()->routeIs('genres.index')"
+                class="px-4 py-3 rounded-lg font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                active-class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white font-semibold">
+                {{ __('Жанры') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link
+                :href="route('categories.index')"
+                :active="request()->routeIs('categories.index')"
+                class="px-4 py-3 rounded-lg font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                active-class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white font-semibold">
+                {{ __('Категории') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link
+                :href="route('admin.dashboard')"
+                :active="request()->routeIs('admin.dashboard')"
+                class="px-4 py-3 rounded-lg font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                active-class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white font-semibold">
+                {{ __('Контенты') }}
             </x-responsive-nav-link>
         </div>
 
