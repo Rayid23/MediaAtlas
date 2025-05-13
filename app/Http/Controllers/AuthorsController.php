@@ -65,9 +65,21 @@ class AuthorsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateAuthorsRequest $request, Authors $authors)
+    public function update(UpdateAuthorsRequest $request, Authors $author)
     {
-        //
+        $data = $request->all();
+
+        unset($data['bio']);
+
+        $contents = $data['contents'];
+        unset($data['contents']);
+
+
+        $author->update($data);
+
+        $author->contents()->sync($contents);
+
+        return redirect()->back();        
     }
 
     /**

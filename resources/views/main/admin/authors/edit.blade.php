@@ -1,5 +1,193 @@
 <x-app-layout>
     <div class="py-8">
+        <style>
+            .form_label {
+                position: relative;
+                min-height: 88px;
+            }
+
+            .form_text {
+                vertical-align: top;
+                display: block;
+                margin-bottom: 6px;
+                font-weight: 500;
+                font-size: 12px;
+                line-height: 16px;
+                letter-spacing: 0.04em;
+                color: #686ea1;
+            }
+
+            .form_text:after {
+                content: "*";
+                position: relative;
+                top: 0;
+                font-size: 13px;
+                color: #f00;
+            }
+
+            .form_label input,
+            .field_multiselect {
+                position: relative;
+                width: 100%;
+                display: block;
+                min-height: 46px;
+                border: 1px solid rgb(199, 191, 241);
+                box-sizing: border-box;
+                border-radius: 8px;
+                padding: 12px 40px 10px 16px;
+                font-size: 14px;
+                color: rgb(9, 233, 20);
+                outline-color: rgb(28, 67, 122);
+            }
+
+            .form_label input::placeholder,
+            .field_multiselect::placeholder {
+                color: rgb(197, 36, 31);
+            }
+
+            .form_label input:hover,
+            .field_multiselect:hover {
+                box-shadow: 0 0 2px rgba(0, 0, 0, 0.16);
+            }
+
+            .form_label input:focus,
+            .field_multiselect:focus {
+                box-shadow: 0 0 2px rgba(0, 0, 0, 0.16);
+            }
+
+            .field_multiselect_help {
+                position: absolute;
+                max-width: 100%;
+                background-color: rgb(212, 187, 45);
+                top: -48px;
+                left: 0;
+                opacity: 0;
+            }
+
+            .form_label input.error {
+                border-color: #eb5757;
+            }
+
+            .error_text {
+                color: #eb5757;
+            }
+
+            .field_multiselect {
+                padding-right: 60px;
+            }
+
+            .field_multiselect:after {
+                content: "";
+                position: absolute;
+                right: 14px;
+                top: 15px;
+                width: 6px;
+                height: 16px;
+                background: url("data:image/svg+xml,%3Csvg width='6' height='16' viewBox='0 0 6 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3 0L6 5H0L3 0Z' fill='%23A8ACC9'/%3E%3Cpath d='M3 16L6 11H0L3 16Z' fill='%23A8ACC9'/%3E%3C/svg%3E") 50% 50% no-repeat;
+            }
+
+            .multiselect_block {
+                position: relative;
+                width: 100%;
+            }
+
+            .field_select {
+                position: absolute;
+                top: calc(100% - 2px);
+                left: 0;
+                width: 100%;
+                border: 2px solid rgb(28, 67, 122);
+                border-bottom-right-radius: 2px;
+                border-bottom-left-radius: 2px;
+                box-sizing: border-box;
+                outline-color: rgb(28, 67, 122);
+                z-index: 6;
+                background-color: #686ea1;
+            }
+
+            .field_select[multiple] {
+                overflow-y: auto;
+            }
+
+            .field_select option {
+                display: block;
+                padding: 8px 16px;
+                width: calc(370px - 32px);
+                cursor: pointer;
+            }
+
+            .field_select option:checked {
+                background-color: rgb(28, 67, 122);
+            }
+
+            .field_select option:hover {
+                background-color: rgb(28, 67, 122);
+            }
+
+            .field_multiselect button {
+                position: relative;
+                padding: 7px 34px 7px 8px;
+                background: rgb(28, 67, 122);
+                border-radius: 4px;
+                margin-right: 9px;
+                margin-bottom: 10px;
+            }
+
+            .field_multiselect button:hover,
+            .field_multiselect button:focus {
+                background-color: rgb(28, 67, 122);
+            }
+
+            .field_multiselect button:after {
+                content: "";
+                position: absolute;
+                top: 7px;
+                right: 10px;
+                width: 16px;
+                height: 16px;
+                background: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M19.4958 6.49499C19.7691 6.22162 19.7691 5.7784 19.4958 5.50504C19.2224 5.23167 18.7792 5.23167 18.5058 5.50504L12.5008 11.5101L6.49576 5.50504C6.22239 5.23167 5.77917 5.23167 5.50581 5.50504C5.23244 5.7784 5.23244 6.22162 5.50581 6.49499L11.5108 12.5L5.50581 18.505C5.23244 18.7784 5.23244 19.2216 5.50581 19.495C5.77917 19.7684 6.22239 19.7684 6.49576 19.495L12.5008 13.49L18.5058 19.495C18.7792 19.7684 19.2224 19.7684 19.4958 19.495C19.7691 19.2216 19.7691 18.7784 19.4958 18.505L13.4907 12.5L19.4958 6.49499Z' fill='%234F5588'/%3E%3C/svg%3E") 50% 50% no-repeat;
+                background-size: contain;
+            }
+
+            .multiselect_label {
+                position: absolute;
+                top: 1px;
+                left: 2px;
+                width: 100%;
+                height: 44px;
+                cursor: pointer;
+                z-index: 3;
+            }
+
+            .field_select {
+                display: none;
+            }
+
+            input.multiselect_checkbox {
+                position: absolute;
+                right: 0;
+                top: 0;
+                width: 40px;
+                height: 40px;
+                border: none;
+                opacity: 0;
+            }
+
+            .multiselect_checkbox:checked~.field_select {
+                display: block;
+            }
+
+            .multiselect_checkbox:checked~.multiselect_label {
+                width: 40px;
+                left: initial;
+                right: 4px;
+                background: rgb(28, 67, 122) url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M19.4958 6.49499C19.7691 6.22162 19.7691 5.7784 19.4958 5.50504C19.2224 5.23167 18.7792 5.23167 18.5058 5.50504L12.5008 11.5101L6.49576 5.50504C6.22239 5.23167 5.77917 5.23167 5.50581 5.50504C5.23244 5.7784 5.23244 6.22162 5.50581 6.49499L11.5108 12.5L5.50581 18.505C5.23244 18.7784 5.23244 19.2216 5.50581 19.495C5.77917 19.7684 6.22239 19.7684 6.49576 19.495L12.5008 13.49L18.5058 19.495C18.7792 19.7684 19.2224 19.7684 19.4958 19.495C19.7691 19.2216 19.7691 18.7784 19.4958 18.505L13.4907 12.5L19.4958 6.49499Z' fill='%234F5588'/%3E%3C/svg%3E") 50% 50% no-repeat;
+            }
+
+            .multiselect_checkbox:checked~.field_multiselect_help {
+                opacity: 1;
+            }
+        </style>
         <!-- Улучшенные хлебные крошки с визуальными подсказками -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
             <nav class="flex" aria-label="Breadcrumb">
@@ -50,7 +238,7 @@
                 </div>
 
                 <!-- Форма с четкой структурой -->
-                <form action="{{ route('authors.update', $author) }}" method="POST" class="divide-y divide-gray-200 dark:divide-gray-700">
+                <form action="{{ route('authors.update', $author->id) }}" method="POST" class="divide-y divide-gray-200 dark:divide-gray-700">
                     @csrf
                     @method('PUT')
 
@@ -82,79 +270,46 @@
                             </div>
                         </div>
 
-                        <!-- Мультиселект контентов -->
-                        <div class="mt-6"
-                            data-selected='@json($author->contents->map(function($content) { return ["id" => $content->id, "title" => $content->title]; }))'
-                            data-contents='@json($contents->map(function($content) { return ["id" => $content->id, "title" => $content->title]; }))'>
-
-                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                {{ __('Связанные материалы') }}
-                            </label>
-
-                            <!-- Контейнер выбора с четкой визуальной обратной связью -->
-                            <div class="relative">
-                                <!-- Поле ввода с индикатором выбранных элементов -->
-                                <div class="flex items-center flex-wrap gap-2 p-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 min-h-[42px]">
-                                    <!-- Выбранные элементы (чипсы) -->
-                                    <template x-for="(item, index) in selectedContents" :key="item.id">
-                                        <div class="flex items-center px-3 py-1 bg-blue-50 dark:bg-blue-900/30 rounded-full text-sm text-blue-700 dark:text-blue-300">
-                                            <span x-text="escapeHtml(content.title)"></span>
-                                            <button @click="removeContent(index)" type="button" class="ml-2 text-blue-500 hover:text-blue-700 dark:hover:text-blue-200">
-                                                &times;
-                                            </button>
-                                        </div>
-                                    </template>
-
-                                    <!-- Поле поиска -->
-                                    <input x-model="searchQuery"
-                                        @click="showDropdown = true"
-                                        @keydown.escape="showDropdown = false"
-                                        type="text"
-                                        class="flex-grow px-2 py-1 bg-transparent border-0 focus:ring-0 focus:outline-none min-w-[100px]"
-                                        placeholder="{{ $contents->isEmpty() ? 'Нет доступных материалов' : 'Поиск материалов...' }}"
-                                        :disabled="{{ $contents->isEmpty() ? 'true' : 'false' }}">
-                                </div>
-
-                                <!-- Выпадающий список с материалами -->
-                                <div x-show="showDropdown"
-                                    @click.away="showDropdown = false"
-                                    class="absolute z-10 mt-1 w-full bg-white dark:bg-gray-800 shadow-lg rounded-md border border-gray-200 dark:border-gray-700 max-h-60 overflow-auto">
-                                    <!-- Состояние загрузки -->
-                                    <div x-show="isLoading" class="p-4 text-center text-gray-500">
-                                        Загрузка...
-                                    </div>
-
-                                    <!-- Состояние пустого списка -->
-                                    <div x-show="!isLoading && filteredContents.length === 0" class="p-4 text-center text-gray-500">
-                                        Материалы не найдены
-                                    </div>
-
-                                    <!-- Список материалов -->
-                                    <template x-for="content in filteredContents" :key="content.id">
-                                        <div @click="toggleContent(content)"
-                                            class="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer flex items-center"
-                                            :class="{ 'bg-blue-50 dark:bg-blue-900/30': isSelected(content) }">
-                                            <input type="checkbox"
-                                                class="h-4 w-4 text-blue-600 dark:text-blue-400 border-gray-300 dark:border-gray-600 rounded focus:ring-blue-500"
-                                                :checked="isSelected(content)"
-                                                readonly>
-                                            <span class="ml-3 text-sm text-gray-700 dark:text-gray-300" x-text="content.title"></span>
-                                        </div>
-                                    </template>
-                                </div>
+                        <div class="form_label">
+                            <span class="form_text">Your technology</span>
+                            <div class="multiselect_block">
+                                <label for="select-1" class="field_multiselect">Technology</label>
+                                <input id="checkbox-1" class="multiselect_checkbox" type="checkbox">
+                                <label for="checkbox-1" class="multiselect_label"></label>
+                                <select id="select-1" class="field_select" name="contents[]" multiple style="@media (min-width: 768px) { height: calc(4 * 38px)}">
+                                    @foreach ($contents as $content)
+                                        <option value="{{ $content->id }}">{{ $content->title }}</option>
+                                    @endforeach
+                                </select>
+                                <span class="field_multiselect_help">You can select several items by pressing <b>Ctrl(or Command)+Element</b></span>
                             </div>
-
-                            <!-- Скрытые input'ы для формы -->
-                            <template x-for="content in selectedContents" :key="content.id">
-                                <input type="hidden" name="contents[]" :value="content.id">
-                            </template>
-
-                            <!-- Подсказка -->
-                            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                                Выберите материалы, связанные с этим автором
-                            </p>
+                            <span class="error_text"></span>
                         </div>
 
+                        <script>
+                            let multiselect_block = document.querySelectorAll(".multiselect_block");
+                            multiselect_block.forEach(parent => {
+                                let label = parent.querySelector(".field_multiselect");
+                                let select = parent.querySelector(".field_select");
+                                let text = label.innerHTML;
+                                select.addEventListener("change", function(element) {
+                                    let selectedOptions = this.selectedOptions;
+                                    label.innerHTML = "";
+                                    for (let option of selectedOptions) {
+                                        let button = document.createElement("button");
+                                        button.type = "button";
+                                        button.className = "btn_multiselect";
+                                        button.textContent = option.value;
+                                        button.onclick = _ => {
+                                            option.selected = false;
+                                            button.remove();
+                                            if (!select.selectedOptions.length) label.innerHTML = text
+                                        };
+                                        label.append(button);
+                                    }
+                                })
+                            })
+                        </script>
 
                         <!-- Поле биографии -->
                         <div>
@@ -189,8 +344,4 @@
         </div>
     </div>
 
-    <script>
-       
-    </script>
-    
 </x-app-layout>
