@@ -74,12 +74,12 @@
                 <!-- Material Design action area -->
                 <div class="px-6 pb-6 md:px-8 md:pb-8">
                     <div class="border-t border-gray-100 dark:border-gray-700 pt-6 flex space-x-3">
-                        <a href="{{ $author->url }}" class="px-4 py-2 bg-blue-700 border border-blue-300 dark:border-blue-600 text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-blue-700 rounded-lg font-medium transition-colors duration-200">
+                        <a href="{{ route('authors.show', $author->id) }}" class="px-4 py-2 bg-blue-700 border border-blue-300 dark:border-blue-600 text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-blue-700 rounded-lg font-medium transition-colors duration-200">
                             Посмотреть
                         </a>
-                        <button class="px-4 py-2 bg-green-600 hover:bg-gray-700 text-white rounded-lg font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
+                        <a href="{{ route('authors.edit', $author->id) }}" class="px-4 py-2 bg-green-600 hover:bg-gray-700 text-white rounded-lg font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
                             Изменить
-                        </button>
+                        </a>
                         <button class="px-4 py-2 bg-red-600 hover:bg-gray-700 text-white rounded-lg font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
                             Удалить
                         </button>

@@ -48,7 +48,7 @@
                             </svg>
                             {{ __("Добавить автора") }}
                         </button>
-                        <a  href="{{ route('authors.index') }}" class="flex items-center justify-center px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-indigo-300 focus:ring-opacity-50 shadow-md hover:shadow-lg active:scale-[0.98]">
+                        <a href="{{ route('authors.index') }}" class="flex items-center justify-center px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-indigo-300 focus:ring-opacity-50 shadow-md hover:shadow-lg active:scale-[0.98]">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-5-5a1 1 0 010-1.414l5-5a1 1 0 111.414 1.414L4.414 9H17a1 1 0 110 2H4.414l3.293 3.293a1 1 0 010 1.414z" clip-rule="evenodd" />
                             </svg>
@@ -104,7 +104,7 @@
         </div>
 
         <!-- Модальное окно для добавления автора -->
-        <div class="modal fade fixed inset-0 z-50 overflow-y-auto" id="exampleModal" tabindex="-1" aria-hidden="false">
+        <div class="modal fade fixed inset-0 z-50 overflow-y-auto hidden" id="exampleModal" tabindex="-1" aria-hidden="false">
             <div class="modal-backdrop fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity"></div>
             <div class="modal-container min-h-screen flex items-center justify-center p-4">
                 <div class="modal-content bg-white dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 w-full max-w-md transform transition-all">
@@ -308,22 +308,29 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                     <div class="flex justify-end space-x-2">
-                                        <button class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300 transition-colors duration-200 p-1 rounded-md hover:bg-indigo-50 dark:hover:bg-indigo-900/30">
+                                        <a href="{{ route('authors.show', $author->id) }}" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300 transition-colors duration-200 p-1 rounded-md hover:bg-indigo-50 dark:hover:bg-indigo-900/30">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                             </svg>
-                                        </button>
-                                        <button class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-300 transition-colors duration-200 p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-600">
+                                        </a>
+                                        <a href="{{ route('authors.edit', $author->id) }}" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-300 transition-colors duration-200 p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-600">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                             </svg>
-                                        </button>
-                                        <button class="text-red-600 dark:text-red-400 hover:text-red-900 dark:hover:text-red-300 transition-colors duration-200 p-1 rounded-md hover:bg-red-50 dark:hover:bg-red-900/30">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                            </svg>
-                                        </button>
+                                        </a>
+
+                                        <form action="{{ route('authors.destroy', $author->id) }}" method="POST" onsubmit="return confirm('Удалить автора?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="text-red-600 dark:text-red-400 hover:text-red-900 dark:hover:text-red-300 transition-colors duration-200 p-1 rounded-md hover:bg-red-50 dark:hover:bg-red-900/30">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                </svg>
+                                            </button>
+                                        </form>
+
+
                                     </div>
                                 </td>
                             </tr>
@@ -369,23 +376,25 @@
                 document.getElementById('exampleModal').classList.add('hidden');
             });
         });
-
         document.addEventListener('DOMContentLoaded', function() {
             const openBtn = document.getElementById('openModalBtn');
             const modal = document.getElementById('exampleModal');
-            const closeBtn = modal.querySelector('button[type="button"]');
 
+            // Обработчик открытия
             openBtn.addEventListener('click', () => {
                 modal.classList.remove('hidden');
             });
 
-            closeBtn.addEventListener('click', () => {
-                modal.classList.add('hidden');
+            // Обработчик закрытия (для всех кнопок закрытия)
+            modal.querySelectorAll('button[type="button"]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    modal.classList.add('hidden');
+                });
             });
 
             // Закрытие при клике на фон
             modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
+                if (e.target === modal || e.target.classList.contains('modal-backdrop')) {
                     modal.classList.add('hidden');
                 }
             });

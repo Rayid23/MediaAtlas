@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAuthorsRequest;
 use App\Http\Requests\UpdateAuthorsRequest;
 use App\Models\Authors;
+use App\Models\Content;
 
 class AuthorsController extends Controller
 {
@@ -47,17 +48,18 @@ class AuthorsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Authors $authors)
+    public function show(Authors $author)
     {
-        //
+        return view('main.admin.authors.show', compact('author'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Authors $authors)
+    public function edit(Authors $author)
     {
-        //
+        $contents = Content::all();
+        return view('main.admin.authors.edit', compact('author', 'contents'));
     }
 
     /**
@@ -71,8 +73,10 @@ class AuthorsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Authors $authors)
+    public function destroy(Authors $author)
     {
-        //
+        $author->delete();
+
+        return redirect()->back()->with('success', 'Автор успешно удален!');
     }
 }
