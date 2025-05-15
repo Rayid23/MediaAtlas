@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\AuthorContent;
 use App\Models\ContentGenres;
 use App\Models\User;
+use App\Models\Content;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Routing\Route;
@@ -29,23 +30,28 @@ class DatabaseSeeder extends Seeder
         $this->call([ // Вызов сидеров
             AuthorSeeder::class, // Создание авторов
             CategorySeeder::class, // Создание категорий
-            ContentSeeder::class, // Создание контента
             GenreSeeder::class // Создание жанров
         ]);
 
-        for ($index = 0; $index < 10; $index++) {
-             ContentGenres::query()->create([
-                'content_id' => rand(1, 10),
-                'genre_id' => rand(1, 10),
-             ]);
-        } // Создание связи между контентом и жанрами
+        Content::create([
+            'title' => 'Enjoykin - Стартуем',
+            'description' => 'Легендарная музыкаа Enjoykin ))',
+            'url' => 'https://www.youtube.com/embed/9u9cJnq4cNk?si=9UfUknUmLlTDUaVU',
+            'category_id' => 1
+        ]);
 
-        for ($index = 0; $index < 10; $index++) {
-             AuthorContent::query()->create([
-                'author_id' => rand(1, 10),
-                'content_id' => rand(1, 10),
-             ]);
-        } // Создание связи между авторами и контентом
+        for($i = 1; $i <= 4; $i++){
+            ContentGenres::query()->create([
+                'content_id' => 1,
+                'genre_id' => $i,
+            ]);
+        }
+
+        AuthorContent::query()->create([
+            'author_id' => 2,
+            'content_id' => 1,
+        ]);
+             
 
         Role::create(['name' => 'super-admin']); // Создание роли супер админа
         Role::create(['name' => 'admin']); // Создание роли админа

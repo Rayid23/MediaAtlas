@@ -27,4 +27,9 @@ class Content extends Model
     {
         return $this->belongsToMany(Genre::class, 'content_genres', 'content_id', 'genre_id');
     }
+
+    public function authors()
+    {
+        return $this->belongsToMany(Authors::class, 'author_content', 'content_id', 'author_id');
+    }
 }

@@ -13,7 +13,8 @@ class ContentController extends Controller
      */
     public function index()
     {
-        //
+        $contents = Content::all();
+        return view('main.admin.contents.index', compact('contents'));
     }
 
     /**
