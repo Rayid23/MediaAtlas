@@ -61,6 +61,7 @@ class ContentController extends Controller
      */
     public function destroy(Content $content)
     {
-        //
+        $content->delete();
+        return redirect()->back();
     }
 }

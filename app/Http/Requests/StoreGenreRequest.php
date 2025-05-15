@@ -11,7 +11,7 @@ class StoreGenreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,16 @@ class StoreGenreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|min:2|max:16|unique:genres,name'
+        ];
+    }
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Пожалуйста, заполните данное поле',
+            'name.min' => 'Минимальная длина — 2 символа', 
+            'name.max' => 'Максимальная длина — 16 символов',
+            'name.unique' => 'Данное имя уже записано',
         ];
     }
 }

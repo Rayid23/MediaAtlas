@@ -1,42 +1,39 @@
 <x-app-layout>
     <div class="py-8">
-        <!-- Улучшенные хлебные крошки с акцентом на текущее положение -->
+        <!-- Улучшенные хлебные крошки с лучшей визуальной иерархией -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
             <nav class="flex" aria-label="Breadcrumb">
-                <ol class="inline-flex items-center space-x-2 md:space-x-3">
+                <ol class="inline-flex items-center space-x-1 md:space-x-2">
                     <li class="inline-flex items-center">
-                        <!-- Здесь меняется слога -->
-                        <a href="{{ route('authors.index') }}" class="inline-flex items-center text-sm font-medium text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors duration-150">
-                            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <a href="{{ route('genres.index') }}" class="inline-flex items-center text-sm font-medium text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors duration-150">
+                            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
                                 <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
                             </svg>
-                            {{ __('Авторы') }}
+                            {{ __('Жанры') }}
                         </a>
-
                     </li>
-
                     <li>
                         <div class="flex items-center">
-                            <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                            <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
                                 <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
                             </svg>
-                            <!-- Здесь меняется слога -->
-                            <a href="{{ route('authors.show', $author->id) }}" class="ml-2 text-sm font-medium text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">
-                                {{ $author->name }}
+                            <a href="{{ route('genres.show', $genre->id) }}" class="ml-2 text-sm font-medium text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">
+                                {{ $genre->name }}
                             </a>
                         </div>
                     </li>
                     <li aria-current="page">
                         <div class="flex items-center">
-                            <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                            <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
                                 <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
                             </svg>
-                            <span class="ml-2 text-sm font-medium text-blue-600 dark:text-blue-400">{{ __('Редактирование') }}</span>
+                            <span class="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('Детали') }}</span>
                         </div>
                     </li>
                 </ol>
             </nav>
         </div>
+
 
         <!-- Основная форма редактирования с улучшенной структурой -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -50,14 +47,14 @@
                             </svg>
                         </div>
                         <div>
-                            <h1 class="text-xl font-bold text-gray-900 dark:text-white">{{ __('Редактирование категории') }}</h1>
+                            <h1 class="text-xl font-bold text-gray-900 dark:text-white">{{ __('Редактирование жанра') }}</h1>
                             <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Измените необходимые поля и сохраните изменения</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Форма с четкой группировкой полей -->
-                <form action="{{ route('authors.update', $author->id) }}" method="POST" class="divide-y divide-gray-200 dark:divide-gray-700">
+                <form action="{{ route('genres.update', $genre->id) }}" method="POST" class="divide-y divide-gray-200 dark:divide-gray-700">
                     @csrf
                     @method('PUT')
 
@@ -70,12 +67,12 @@
                             <div>
                                 <div class="flex items-center justify-between mb-1">
                                     <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                                        {{ __('Название Автора') }}
+                                        {{ __('Название жанра') }}
                                     </label>
                                 </div>
-                                <input type="text" name="name" id="name" value="{{ old('name', $author->name) }}" required
+                                <input type="text" name="name" id="name" value="{{ old('name', $genre->name) }}" required
                                     class="block w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:focus:ring-blue-600 dark:focus:border-blue-600 placeholder-gray-400 dark:placeholder-gray-500 transition-all duration-200 @error('name') border-red-300 focus:ring-red-200 dark:focus:ring-red-900/50 @enderror"
-                                    placeholder="Введите новое название автора">
+                                    placeholder="Введите название жанра">
                                 @error('name')
                                 <div class="mt-2 flex items-center text-sm text-red-600 dark:text-red-400">
                                     <svg class="flex-shrink-0 mr-1.5 h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
@@ -85,37 +82,21 @@
                                 </div>
                                 @enderror
                             </div>
-                            <!-- Поле ссылки с улучшенной валидацией -->
-                            <div>
-                                <div class="flex items-center justify-between mb-1">
-                                    <label for="url" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                                        {{ __('Добавьте новую ссылку') }}
-                                    </label>
-                                </div>
-                                <input type="text" name="url" id="url" value="{{ old('url', $author->url) }}" required
-                                    class="block w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:focus:ring-blue-600 dark:focus:border-blue-600 placeholder-gray-400 dark:placeholder-gray-500 transition-all duration-200 @error('name') border-red-300 focus:ring-red-200 dark:focus:ring-red-900/50 @enderror"
-                                    placeholder="Введите новую ссылку на профиль автора">
-                                @error('url')
-                                <div class="mt-2 flex items-center text-sm text-red-600 dark:text-red-400">
-                                    <svg class="flex-shrink-0 mr-1.5 h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
-                                    </svg>
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                            </div>
                         </div>
+
+
                     </div>
 
                     <!-- Футер формы с улучшенными кнопками действий -->
                     <div class="px-6 py-4 bg-gray-50 dark:bg-gray-700/30 border-t border-gray-200 dark:border-gray-700 flex flex-col-reverse sm:flex-row sm:justify-between sm:items-center space-y-3 sm:space-y-0">
                         <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3">
-                            <a href="{{ route('authors.show', $author->id) }}" class="inline-flex items-center justify-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                            <a href="{{ route('genres.show', $genre) }}" class="inline-flex items-center justify-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
                                 <svg class="-ml-1 mr-2 h-5 w-5 text-gray-500 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                                 </svg>
                                 {{ __('Отменить') }}
                             </a>
+
                         </div>
                         <div class="flex space-x-3">
                             <button type="reset" class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-blue-700 dark:text-blue-300 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-900/50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">

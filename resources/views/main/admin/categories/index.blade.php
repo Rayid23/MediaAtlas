@@ -87,15 +87,19 @@
 
                         <!-- Clear call-to-action -->
                         <div class="mt-4 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                            <button class="px-2 py-1 text-xs bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
+                            <a href="{{ route('categories.show', $category->id) }}" class="px-2 py-1 text-xs bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
                                 Просмотр
-                            </button>
-                            <button class="px-2 py-1 text-xs border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md transition-colors duration-150">
+                            </a>
+                            <a href="{{ route('categories.edit', $category->id) }}" class="px-2 py-1 text-xs border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md transition-colors duration-150">
                                 Изменить
-                            </button>
-                            <button class="px-2 py-1 text-xs bg-red-500 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md transition-colors duration-150">
-                                Удалить
-                            </button>
+                            </a>
+                            <form action="{{ route('categories.destroy', $category->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button class="px-2 py-1 text-xs bg-red-500 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md transition-colors duration-150">
+                                    Удалить
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>

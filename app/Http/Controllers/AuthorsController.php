@@ -42,7 +42,7 @@ class AuthorsController extends Controller
             'url' => $request->url,
         ]);
         
-        return redirect()->back()->with('success', 'Автор успешно добавлен!');
+        return redirect()->back();
     }
 
     /**
@@ -59,6 +59,7 @@ class AuthorsController extends Controller
     public function edit(Authors $author)
     {
         $contents = Content::all();
+        
         return view('main.admin.authors.edit', compact('author', 'contents'));
     }
 
@@ -69,17 +70,9 @@ class AuthorsController extends Controller
     {
         $data = $request->all();
 
-        unset($data['bio']);
-
-        $contents = $data['contents'];
-        unset($data['contents']);
-
-
         $author->update($data);
 
-        $author->contents()->sync($contents);
-
-        return redirect()->back();        
+        return redirect()->route('authors.create');        
     }
 
     /**
@@ -89,6 +82,6 @@ class AuthorsController extends Controller
     {
         $author->delete();
 
-        return redirect()->back()->with('success', 'Автор успешно удален!');
+        return redirect()->back();
     }
 }
